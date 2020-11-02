@@ -112,7 +112,7 @@ Then run:
 docker run -it stefansavev/go_merge_intervals:latest
 ```
 
-# Long story-short
+# Long story short
 
 Simply run:
 
