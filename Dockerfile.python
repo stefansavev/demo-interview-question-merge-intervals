@@ -1,0 +1,18 @@
+FROM python:3.9.0-slim-buster
+
+RUN mkdir /app && pip install pytest
+WORKDIR /app
+
+COPY python_merge_intervals/ python_merge_intervals/
+
+
+RUN pwd
+RUN ls -al
+
+ENV PYTHONPATH=/app/
+
+RUN cd python_merge_intervals && pytest .
+
+CMD python python_merge_intervals/demo.py
+
+
