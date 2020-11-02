@@ -27,7 +27,7 @@ python ./demo.py
 
 Windows users open a `cmd.exe` window and set the `PYTHONPATH` with
 ```
-set PYTHONPATH="C:\...\demo-interview-question-merge-intervals/python_merge_intervals/"
+set PYTHONPATH="C:\...\demo-interview-question-merge-intervals\python_merge_intervals"
 ```
 Then call `python ./demo.py`
 
