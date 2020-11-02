@@ -14,8 +14,12 @@ class MergeIntervalsTestCase:
 test_cases = [
     MergeIntervalsTestCase([], []),
     MergeIntervalsTestCase([Interval(1, 2)], [Interval(1, 2)]),
-    MergeIntervalsTestCase([Interval(1, 2), Interval(3, 4)], [Interval(1, 2), Interval(3, 4)]),
-    MergeIntervalsTestCase([Interval(1, 2), Interval(2, 3)], [Interval(1, 3)]),
+    MergeIntervalsTestCase([Interval(1, 2), Interval(1, 2)],
+                           [Interval(1, 2)]),
+    MergeIntervalsTestCase([Interval(1, 2), Interval(3, 4)],
+                           [Interval(1, 2), Interval(3, 4)]),
+    MergeIntervalsTestCase([Interval(1, 2), Interval(2, 3)],
+                           [Interval(1, 3)]),
     MergeIntervalsTestCase([Interval(25, 30), Interval(2, 19),
                             Interval(14, 23), Interval(4, 8)],
                            [Interval(2, 23), Interval(25, 30)])

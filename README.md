@@ -70,6 +70,26 @@ To run:
 docker run -it stefansavev/python_merge_intervals:latest
 ```
 
+# Implementation Details (Algorithm)
+
+The following algorithm is used:
+1. Sort the intervals by their start time.
+2. Loop over the sorted intervals.
+    Invariants:
+        current is an interval that can grow from the end (but not from the start).
+    a. If current is not set, set it to the interval from the loop iteration
+    b1. If current is set and the interval from the loop can be merged to current,
+        then grow/update current to a merged interval
+    b2. If current is set but the loop interval does not overlap with current,
+        write current to output.
+        Begin a new current interval
+3. Make sure to output current interval
+
+# Testing
+
+I use table driven tests with pytest.
+
+
 # Time to Completion
 
 - 10 min for creating repository, setting up ssh keys, cloning
@@ -77,5 +97,27 @@ docker run -it stefansavev/python_merge_intervals:latest
 - 20 min for code re-organization and pytest
 - 40 min for code formatting, writing comments and README
 - 20 min for Docker
-- 20 min for setting up Go env. (upcoming)
-- 20 min for Go (upcoming)
+
+# Extra: Using GoLang
+
+Build:
+```
+cd demo-interview-question-merge-intervals/
+docker build -f Dockerfile.go . -t stefansavev/go_merge_intervals
+```
+
+Then run:
+
+```
+docker run -it stefansavev/go_merge_intervals:latest
+```
+
+# Long story-short
+
+Simply run:
+
+```
+make
+```
+
+Requires Make and Docker.

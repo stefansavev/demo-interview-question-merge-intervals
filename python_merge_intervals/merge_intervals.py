@@ -20,7 +20,7 @@ def sorted_intervals_overlap(first_interval: Interval, second_interval: Interval
     """
     Tests whether two sorted intervals overlap.
     The first_interval must have its start before the second one.
-    :param first_interval: the first interval. must have its start before the second one
+    :param first_interval: the first interval. Must have its start before the second one
     :param second_interval: the second interval. Must have its start after the second one
     :return: true if the second interval start is before the first end
     """
@@ -30,11 +30,11 @@ def sorted_intervals_overlap(first_interval: Interval, second_interval: Interval
 
 def merge_sorted_intervals(first_interval: Interval, second_interval: Interval):
     """
-    Merges two sorted intervals which overlap. The intervals must overlap. Otherwise
-    an assertion is raised.
-    :param first_interval:
-    :param second_interval:
-    :return: A new interval
+    Merges two sorted intervals which overlap. The intervals must overlap as
+    detected via `sorted_intervals_overlap` function. Otherwise an assertion is raised.
+    :param first_interval: the first interval.
+    :param second_interval: the second interval.
+    :return: A new interval which represents the `union` of the first and second interval
     """
 
     assert sorted_intervals_overlap(first_interval, second_interval)
@@ -52,21 +52,19 @@ def merge_intervals(intervals: List[Interval]) -> List[Interval]:
     :param intervals:
     :return: a list of merged intervals
     """
+    if len(intervals) == 0:
+        return []
 
     sorted_intervals = sorted(intervals, key=lambda interval: interval.start)
 
-    current = None
+    current = sorted_intervals[0]
     merged_intervals = []
-    for interval in sorted_intervals:
-        if current is None:
-            current = interval
+    for interval in sorted_intervals[1:]:
+        if sorted_intervals_overlap(current, interval):
+            current = merge_sorted_intervals(current, interval)
         else:
-            if sorted_intervals_overlap(current, interval):
-                current = merge_sorted_intervals(current, interval)
-            else:
-                merged_intervals.append(current)
-                current = interval
-    if current is not None:
-        merged_intervals.append(current)
+            merged_intervals.append(current)
+            current = interval
+    merged_intervals.append(current)
 
     return merged_intervals
