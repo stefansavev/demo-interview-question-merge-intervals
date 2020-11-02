@@ -121,3 +121,60 @@ make
 ```
 
 Requires Make and Docker.
+
+## Output of make
+
+```
+docker build -f Dockerfile.python . -t stefansavev/python_merge_intervals
+Sending build context to Docker daemon  200.2kB
+Step 1/7 : FROM python:3.9.0-slim-buster
+ ---> 8842fc1a4cb7
+Step 2/7 : RUN mkdir /app && pip install pytest
+ ---> Using cache
+ ---> fdf9f40f4d24
+Step 3/7 : WORKDIR /app
+ ---> Using cache
+ ---> ff1c024c5aee
+Step 4/7 : COPY python_merge_intervals/ python_merge_intervals/
+ ---> Using cache
+ ---> 94f63828dd1f
+Step 5/7 : ENV PYTHONPATH=/app/
+ ---> Using cache
+ ---> 09197b42e07a
+Step 6/7 : RUN cd python_merge_intervals && pytest .
+ ---> Using cache
+ ---> 76e77af2bbc1
+Step 7/7 : CMD python python_merge_intervals/demo.py
+ ---> Using cache
+ ---> 254f1406b325
+Successfully built 254f1406b325
+Successfully tagged stefansavev/python_merge_intervals:latest
+docker run -it stefansavev/python_merge_intervals:latest
+[(2, 23), (25, 30)]
+docker build -f Dockerfile.go . -t stefansavev/go_merge_intervals
+Sending build context to Docker daemon  200.2kB
+Step 1/7 : FROM golang:1.15.3-buster
+ ---> 4a581cd6feb1
+Step 2/7 : RUN mkdir /app && go get github.com/google/go-cmp/cmp
+ ---> Using cache
+ ---> eec130f41ea5
+Step 3/7 : WORKDIR /app
+ ---> Using cache
+ ---> 3407a1a23f10
+Step 4/7 : COPY golang_merge_intervals/ golang_merge_intervals/
+ ---> Using cache
+ ---> a82c08a08444
+Step 5/7 : RUN cd golang_merge_intervals/merge_intervals && go test
+ ---> Using cache
+ ---> ab4c38df4d21
+Step 6/7 : RUN cd golang_merge_intervals/main && go build demo.go
+ ---> Using cache
+ ---> 2448d2d5ec66
+Step 7/7 : CMD golang_merge_intervals/main/demo
+ ---> Using cache
+ ---> 5e0b95f089ea
+Successfully built 5e0b95f089ea
+Successfully tagged stefansavev/go_merge_intervals:latest
+docker run -it stefansavev/go_merge_intervals:latest
+Output: [{"Start":2,"End":23},{"Start":25,"End":30}]
+```
