@@ -3,11 +3,13 @@
 This is a simple interview problem. Demonstrates
 problem-solving, code-formatting, testing and Docker.
 
+The problem is given a list of intervals, merge all the intervals which overlap.
+See the test cases for examples.
+
 It comes in two flavors:
 
 - Python
-- GoLang (to be committed later)
-
+- GoLang
 
 # Getting Started
 
@@ -75,14 +77,11 @@ docker run -it stefansavev/python_merge_intervals:latest
 The following algorithm is used:
 1. Sort the intervals by their start time.
 2. Loop over the sorted intervals.
-    Invariants:
-        current is an interval that can grow from the end (but not from the start).
-    a. If current is not set, set it to the interval from the loop iteration
-    b1. If current is set and the interval from the loop can be merged to current,
-        then grow/update current to a merged interval
-    b2. If current is set but the loop interval does not overlap with current,
-        write current to output.
-        Begin a new current interval
+* Invariant:  current is an interval that can grow from the end (but not from the start).
+* a. If current is not set, set it to the interval from the loop iteration
+* b1. If current is set and the interval from the loop can be merged to current, then grow/update current to a merged interval
+* b2. If current is set but the loop interval does not overlap with current write current to output.
+* c. Begin a new current interval
 3. Make sure to output current interval
 
 # Testing
